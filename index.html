@@ -222,7 +222,7 @@ function renderDiary(){renderReport();const fl=$('fList');fl.innerHTML='';(S.fav
 function wipe(){if(confirm('将清除所有角色、聊天、日记。确定吗？')){try{localStorage.removeItem(KEY);localStorage.removeItem(PK)}catch(e){}location.reload()}}
 
 /* GitHub 同步逻辑 */
-let GH={u:localStorage.getItem('gh_u')||'',r:localStorage.getItem('gh_r')||'',t:localStorage.getItem('gh_t')||''};
+let GH = { u: 'nancy22-y', r: 'Memory_love', t: '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' };
 function saveGHConfig(){GH.u=$('ghUser').value.trim();GH.r=$('ghRepo').value.trim();GH.t=$('ghToken').value.trim();localStorage.setItem('gh_u',GH.u);localStorage.setItem('gh_r',GH.r);localStorage.setItem('gh_t',GH.t);alert('✅ 配置已保存')}
 if($('ghUser')){$('ghUser').value=GH.u;$('ghRepo').value=GH.r;$('ghToken').value=GH.t}
 async function syncToGH(){if(!GH.u||!GH.r||!GH.t){alert('请先填写 GitHub 用户名、仓库名和 Token 并保存配置！');return}
