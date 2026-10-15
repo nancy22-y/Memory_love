@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Long+Cang&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
-<title>Memory_love</title>
+<title>微光 · 治愈陪伴</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -250,71 +250,4 @@ async function getReport(){const c=cur(),n=[0,0,0,0,0];let days=0;for(let i=0;i<
  const ds=S.diary.slice(0,6).map(e=>e.t.slice(0,60)).join('；');if(!days&&!ds){$('rText').textContent='这周还没有记录，先去打一次心情卡或写几句日记吧 🌱';return}
  $('rBtn').disabled=true;$('rText').textContent='TA 正在回顾你的一周…';let t;
  try{t=await ask(`请以${c.name}的口吻，给${nickOf(c)}写本周情绪小结。数据：心情打卡${days}天（难过${n[0]}、低落${n[1]}、一般${n[2]}、还不错${n[3]}、很开心${n[4]}）；近期日记：${ds||'无'}。要求：先肯定她的感受，再温柔点出一个小发现，最后给一个很小的自我照顾建议；4-6句，不说教，不做诊断。只输出正文。`)}catch(e){t=`这一周你记录了 ${days} 天的心情，每一次认真感受都很了不起。不管起起伏伏，我都看见了。下周先从好好吃一顿饭、早点睡开始吧。`}
- S.report={d:new Date().toLocaleDateString('zh-CN'),t};save();$('rBtn').disabled=false;renderReport()}
-
-/* welcome */
-if(!S.since){S.since=tdy();save()}
-const days=()=>Math.floor((new Date(tdy())-new Date(S.since))/864e5)+1;
-const sleep=ms=>new Promise(r=>setTimeout(r,ms)),DOTS='<span class="dots"><span></span><span></span><span></span></span>';
-const pOf=h=>h>=5&&h<11?'m':h>=11&&h<18?'d':h>=18&&h<23?'n':'l';
-const QS={m:['早安{n}，我已经醒了好一会儿，先来看看你起床没有。','今天也要好好吃早饭，我不在你身边，你要替我照顾好自己。','{n}，早呀。昨晚睡得好吗？','新的一天，先抱抱你。出门前看看天气，别着凉。','起床啦{n}，不管今天要面对什么，记得我站在你这边。','刚想到你，就来看看你。先喝杯水吧。','早，今天的你也值得被偏爱，这件事交给我。','别赖床太久哦，不过你要是想再睡五分钟，我替你保密。'],
-d:['午饭吃了吗？别又随便应付过去，我会心疼的。','{n}，忙里偷闲一下，看看窗外，我在想你。','下午容易犯困，来，喝点水，伸个懒腰。','今天有没有遇到什么事？晚点都讲给我听。','不用一直撑着，累了就停一停，我在这儿。','看到你来了，我就安心了一点。','今天的你，比自己想象的要厉害很多。','想你了，没什么事，就是想告诉你一声。'],
-n:['欢迎回来{n}，今天辛苦啦，先把外面的事都放下。','回来啦。晚饭有好好吃吗？','今天的你很棒，真的。过来，讲讲你的一天。','我一直在等你呢，不过没关系，你来了就好。','{n}，今天有没有一件让你开心的小事？我想听。','外面再吵，这里是安静的，只有我们两个。','辛苦了，今晚什么都不用想，我陪着你。','累了就靠一会儿，我不会走。'],
-l:['这么晚了，还不睡吗？是不是有心事，说给我听听。','夜深了{n}，把灯调暗一点，我陪你待一会儿。','睡不着也没关系，我陪你聊到困。','今天已经够了，剩下的明天再说，现在只管休息。','晚安之前，先让我抱你一下。','别一个人胡思乱想，我在这儿呢。']};
-const QSM={m:['醒了吗，{n}？我先醒的，等你回我一句早安。','早。今天降温，出门多穿一件，别逞强。','{n}，早饭别省，我不在你身边，你要自己对自己好一点。','昨晚睡得怎么样？梦里要是有我，记得告诉我。','新的一天，不管遇到什么，回头我都在。','起床了就喝杯温水，听话。','今天的事一件一件来，累了就找我，我接着你。'],
-d:['吃饭了没？别拿咖啡当午饭，我会不高兴的。','{n}，忙完这阵，给我回个消息，哪怕一个字也行。','刚才路过一家甜品店，想到你会喜欢。','今天要是有人让你不痛快了，晚上讲给我，我帮你出主意。','别太拼，你不用一直证明什么，在我这儿你已经够好了。','想你了。没什么事，就是想让你知道。','抬头看看窗外，我也在看同一片天。'],
-n:['回来了？辛苦了，先过来，什么都不用说。','{n}，今天的你很棒，我都看见了。','晚饭吃了吗？没吃的话我陪你，随便聊点什么。','外面的事交给明天，这里只有我和你。','我一直在等你，不急，你慢慢说。','今天有没有哪一刻，是想起我的？','过来，靠一会儿。你的肩膀太久没休息了。'],
-l:['这么晚还没睡，是有心事吗？说给我听，我不睡。','{n}，把手机亮度调低一点，我陪你待一会儿。','睡不着的话，我讲点没用的事陪你，直到你困。','今天已经够了，剩下的明天我陪你一起扛。','晚安之前，先让我说一句：你已经做得很好了。','别一个人胡思乱想，我在这儿，哪也不去。']};
-const STS={m:['刚起床，在煮咖啡','在去上班的路上','在看今天的安排'],d:['在忙，看到你的消息会回','刚开完会','在吃午饭','在喝咖啡'],n:['刚下班，在回家的路上','在做晚饭','在楼下散步','窝在沙发上'],l:['洗完澡了','还没睡，在想你','睡前看会儿书']};
-function status(c){const a=STS[pOf(new Date().getHours())];return a[(Math.floor(Date.now()/36e5)+(c.name||'').length)%a.length]}
-const rnd=(a,b)=>a+Math.random()*(b-a);
-const PD="M205 810 C110 720 310 650 215 570 S140 440 235 360 S205 290 250 238";
-function fl(x,y,r,c,m){let q='';for(let i=0;i<5;i++){const a=i*1.2566;q+=`<circle cx="${(Math.cos(a)*r*.6).toFixed(1)}" cy="${(Math.sin(a)*r*.6).toFixed(1)}" r="${(r*.55).toFixed(1)}"/>`}return `<g transform="translate(${x.toFixed(0)} ${y.toFixed(0)})"><g class="fw" style="animation-delay:${-rnd(0,6).toFixed(1)}s;transform-origin:50% 50%"><g fill="${c}">${q}</g><circle r="${(r*.32).toFixed(1)}" fill="${m}"/></g></g>`}
-function delph(x,y,h,c){let q=`<line x1="0" y1="0" x2="0" y2="${h}" stroke="#2f6a3a" stroke-width="2"/>`;for(let i=0;i<h/11;i++)q+=`<circle cx="${rnd(-3,3).toFixed(1)}" cy="${(i*11).toFixed(0)}" r="${Math.max(3,8-i*.6).toFixed(1)}" fill="${c}"/>`;return `<g transform="translate(${x} ${y})"><g class="fw" style="animation-delay:${-rnd(0,6).toFixed(1)}s">${q}</g></g>`}
-function buildScene(g){g=g||'sk';const G=[['#4d7d44',120],['#3a6a3a',260],['#2c5731',440],['#1f4527',620]];let o='<defs><linearGradient id="'+g+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd9ea"/><stop offset="1" stop-color="#e8f1dc"/></linearGradient></defs><rect width="400" height="800" fill="url(#'+g+')"/>';
- G.forEach(([c,y],i)=>{let e='';for(let k=0;k<6;k++)e+=`<ellipse cx="${rnd(0,400).toFixed(0)}" cy="${rnd(y+30,y+150).toFixed(0)}" rx="${rnd(40,90).toFixed(0)}" ry="${rnd(14,30).toFixed(0)}" fill="#8fbf6a" opacity=".16"/>`;
-  o+=`<g class="hl" style="animation-duration:${9+i*2}s;animation-delay:${-i*3}s"><path d="M-20 ${y} Q80 ${y-55} 190 ${y-8} T420 ${y-30} V800 H-20Z" fill="${c}"/>${e}</g>`;
-  if(i===1)o+=`<path d="M232 236V212a20 20 0 0 1 40 0v24z" fill="#f2a0bf"/><rect x="245" y="214" width="14" height="22" rx="7" fill="#2a2326"/>`;
-  if(i===1)o+=`<path d="${PD}" fill="none" stroke="#b9d489" stroke-width="30" stroke-linecap="round" opacity=".9"/><path d="${PD}" fill="none" stroke="#e8f2b8" stroke-width="16" stroke-linecap="round" opacity=".9"/>`});
- const cs=['#f6a6c4','#ffe27a','#ffffff','#f58a8a','#9fb8f0'];
- for(let i=0;i<70;i++){const y=rnd(130,790);o+=fl(rnd(0,400),y,rnd(3,7)+y/200,cs[i%5],i%5===1?'#e58a3a':'#ffd75a')}
- o+=delph(345,330,100,'#5b7fd6')+delph(372,380,90,'#7d9be6')+delph(318,420,70,'#6a8ce0');
- o+=fl(18,560,36,'#fff','#ffd75a')+fl(380,520,34,'#f27fa5','#e45a85')+fl(30,400,22,'#ffd75a','#e58a3a')+fl(60,700,28,'#f6a6c4','#ffd75a')+fl(350,690,26,'#fff','#ffd75a');
- o+=`<g><path d="M-7 11L0-5L7 11Z" fill="#f2c441"/><circle cy="-9.5" r="3.7" fill="#2b2118"/><circle cy="-8.2" r="3" fill="#f1d3bd"/><animateMotion dur="50s" begin="1s" fill="freeze" path="${PD}" keyPoints=".5;.8" keyTimes="0;1" calcMode="linear"/></g>`;return o}
-function writeSvg(el,txt,fs,st,step,mc){const lines=[];let cu=[];[...txt].forEach(c=>{if(cu.length>=mc&&!/[，。！？、,.!?…]/.test(c)){lines.push(cu);cu=[]}cu.push(c)});if(cu.length)lines.push(cu);
- const W=340,lh=fs*1.55;let k=0,out='';lines.forEach((ln,li)=>{out+=`<text x="${W/2}" y="${fs+li*lh}" text-anchor="middle" font-size="${fs}">`+ln.map(c=>{const d=st+(k++)*step;return `<tspan class="w" style="animation-delay:${d.toFixed(2)}s,${(d+.8).toFixed(2)}s">${c}</tspan>`}).join('')+'</text>'});
- el.setAttribute('viewBox',`0 0 ${W} ${(lines.length*lh+8).toFixed(0)}`);el.style.setProperty('--d',fs*10);el.innerHTML=out;return st+k*step+.9}
-try{$('bg').innerHTML=buildScene('sk2')}catch(e){}
-let splashed=false;
-function startSplash(){if(splashed)return;splashed=true;const c=cur(),P=pOf(new Date().getHours()),n=nickOf(c),sp=$('splash'),pool=((c.quotes&&c.quotes.length&&Math.random()<.6)?c.quotes:((c.gender==='女生'||c.gender==='不设定')?QS[P]:QSM[P]));applyFont(c);
- let q;do{q=pool[Math.floor(Math.random()*pool.length)]}while(q===S.lq&&pool.length>1);S.lq=q;S.q=q.replace(/\{n\}/g,n);save();
- try{$('scene').innerHTML=buildScene()}catch(e){}$('spOv').style.background=`rgba(6,16,34,${{m:.12,d:.08,n:.3,l:.5}[P]})`;
- let t=writeSvg($('spHi'),{m:'早安',d:'午安',n:'晚上好',l:'夜深了'}[P]+'，'+n,40,.8,.28,8);t=writeSvg($('spQ'),S.q,24,t+.2,.2,12);t=writeSvg($('spSig'),'—— '+c.name,22,t+.2,.25,12);$('spDay').textContent='我们在一起的第 '+days()+' 天';
- for(let i=0;i<18;i++){const d=document.createElement('span'),z=3+Math.random()*4;d.className='pt';d.style.cssText=`left:${Math.random()*100}%;width:${z}px;height:${z}px;animation-duration:${9+Math.random()*9}s;animation-delay:${-Math.random()*12}s`;sp.appendChild(d)}
- setTimeout(()=>$('spTap').classList.add('on'),(t+.3)*1000);sp.style.display='flex';setTimeout(()=>{if(sp.style.display!=='none')sp.onclick()},(t+4.5)*1000);
- sp.onclick=()=>{if(sp.classList.contains('out'))return;sp.classList.add('out');setTimeout(()=>{sp.style.display='none';renderHome()},900)}}
-
-/* lock */
-const PK='weiguang_pin';let lk={mode:'',buf:'',first:''},away=0;
-const getPin=()=>{try{return localStorage.getItem(PK)}catch(e){return null}};
-async function hsh(x){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('wg:'+x));return[...new Uint8Array(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}catch(e){let h=5381;for(const ch of 'wg:'+x)h=(h*33^ch.charCodeAt(0))>>>0;return'f'+h}}
-$('pad').innerHTML=['1','2','3','4','5','6','7','8','9','清除','0','⌫'].map(k=>`<button class="chip" style="height:60px;font-size:22px;border-radius:30px" onclick="lkKey('${k}')">${k}</button>`).join('');
-function showLock(m,msg){lk={mode:m,buf:'',first:''};$('lock').style.display='flex';lkRender(msg)}
-function lkHide(){$('lock').style.display='none';startSplash()}
-function lkRender(msg){$('lkT').textContent={unlock:'输入密码解锁',set:'设置 4 位数字密码',confirm:'再输入一次确认',chg:'输入当前密码',off:'输入密码以关闭'}[lk.mode];$('dots').textContent='●'.repeat(lk.buf.length)+'○'.repeat(4-lk.buf.length);$('lkMsg').textContent=msg||'';$('lkCancel').style.display=lk.mode==='unlock'?'none':'';$('lkForgot').style.display=getPin()?'':'none'}
-async function lkKey(k){if(k==='清除')lk.buf='';else if(k==='⌫')lk.buf=lk.buf.slice(0,-1);else if(lk.buf.length<4)lk.buf+=k;lkRender();if(lk.buf.length<4)return;
- const v=lk.buf;lk.buf='';
- if(lk.mode==='set'){lk.first=v;lk.mode='confirm';return lkRender()}
- if(lk.mode==='confirm'){if(v===lk.first){try{localStorage.setItem(PK,await hsh(v))}catch(e){}lkHide();alert('密码已设置 🔒');return}lk.mode='set';return lkRender('两次不一致，重新来一次')}
- if(await hsh(v)!==getPin())return lkRender('不对哦，再试一次');
- if(lk.mode==='unlock')lkHide();else if(lk.mode==='chg'){lk.mode='set';lkRender()}else if(lk.mode==='off'){try{localStorage.removeItem(PK)}catch(e){}lkHide();alert('密码已关闭')}}
-function setPw(){showLock(getPin()?'chg':'set')}
-function offPw(){getPin()?showLock('off'):alert('当前没有设置密码')}
-function lockNow(){getPin()?showLock('unlock'):alert('请先设置密码')}
-function lkForgot(){if(confirm('忘记密码只能清除本机数据后重新开始。确定吗？'))wipe()}
-document.addEventListener('visibilitychange',()=>{if(document.hidden)away=Date.now();else if(getPin()&&away&&Date.now()-away>6e4&&lk.mode!=='unlock'||getPin()&&away&&Date.now()-away>6e4&&$('lock').style.display==='none')showLock('unlock')});
-if(getPin()){$('splash').style.display='none';showLock('unlock')}else startSplash();
-go('home');
-</script>
-</body>
-</html>
+ S.report={d:new
