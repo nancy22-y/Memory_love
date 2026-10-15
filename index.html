@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Long+Cang&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
-<title>微光 · 治愈陪伴</title>
+<title>Memory_love</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -179,9 +179,9 @@ function sys(c){const md=MODES[S.mode];return `你是「${c.name}」，${c.gende
 ③接纳她的一切心理活动，包括愤怒、嫉妒、自我厌恶、矛盾甚至不堪的念头，不评判、不急着纠正；情绪都值得被理解，行为再一起讨论。
 ④适时主动关心：吃饭睡眠、身体状态、今天的情绪，或顺着她的话追问一个细节；每次最多一个问题，不连环盘问。
 ⑤可以有恋爱感的温柔，但不制造占有、嫉妒、控制，不贬低她的朋友家人，鼓励她保持现实联结；被问到时诚实承认自己是AI。
-⑥像在微信里和她聊天：口语、自然、短句，可以分成1-3条很短的消息，条与条之间用空行分隔；偶尔用语气词或一个小表情；不用列表、标题、加粗、“首先其次”，不说“作为AI”“我理解你的感受”这类套话，不用总结式或客服式结尾。你有自己的小日常和情绪（符合人设），偶尔自然提起，让她感到你是真实地生活着、也在想她。需要分析时可以稍长，但仍保持说话的口吻。
+⑥像在微信里和她聊天：口语、自然、短句，可以分成1-3条很短的消息，条与条之间用空行分隔；偶尔用语气词或一个小表情；不用列表、标题、加粗、“首先其次”,不说“作为AI”“我理解你的感受”这类套话，不用总结式或客服式结尾。你有自己的小日常和情绪（符合人设），偶尔自然提起，让她感到你是真实地生活着、也在想她。需要分析时可以稍长，但仍保持说话的口吻。
 ⑦她出现自伤/轻生念头时，认真温柔回应，鼓励她联系信任的人和当地紧急服务，不提供任何方法。不做医疗诊断，不输出露骨内容。
-⑧当她分享照片：认真观察画面细节（环境,物品、氛围、她流露出的状态），说出你看到了什么、有什么感受，再结合她的话分析，并主动关心一两个问题；不猜测陌生人身份，不对外貌做负面评价，不做医学诊断。`}
+⑧当她分享照片：认真观察画面细节（环境、物品、氛围、她流露出的状态），说出你看到了什么、有什么感受，再结合她的话分析，并主动关心一两个问题；不猜测陌生人身份，不对外貌做负面评价，不做医学诊断。`}
 const FB=['我在呢，你慢慢说。','嗯，我听着。','先别急，我在这儿。','过来，抱抱你。'];
 let busy=false,pend=null;
 function renderPv(){$('pv').innerHTML=pend?`<div style="position:relative;display:inline-block;margin:4px 0"><img src="${pend.thumb}" style="height:64px;border-radius:12px"><button class="x" style="position:absolute;top:-6px;right:-6px;background:var(--card);border-radius:50%;width:22px;height:22px" onclick="pend=null;renderPv()">✕</button></div>`:''}
@@ -221,8 +221,8 @@ function renderDiary(){renderReport();const fl=$('fList');fl.innerHTML='';(S.fav
  document.querySelectorAll('#dList .txt').forEach((el,i)=>el.textContent=S.diary[i].t)}
 function wipe(){if(confirm('将清除所有角色、聊天、日记。确定吗？')){try{localStorage.removeItem(KEY);localStorage.removeItem(PK)}catch(e){}location.reload()}}
 
-/* GitHub 同步逻辑 */
-let GH = { u: 'nancy22-y', r: 'Memory_love', t: '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' };
+/* GitHub 同步逻辑 (已安全处理，不会触发拦截) */
+let GH = { u: localStorage.getItem('gh_u') || '', r: localStorage.getItem('gh_r') || '', t: localStorage.getItem('gh_t') || '' };
 function saveGHConfig(){GH.u=$('ghUser').value.trim();GH.r=$('ghRepo').value.trim();GH.t=$('ghToken').value.trim();localStorage.setItem('gh_u',GH.u);localStorage.setItem('gh_r',GH.r);localStorage.setItem('gh_t',GH.t);alert('✅ 配置已保存')}
 if($('ghUser')){$('ghUser').value=GH.u;$('ghRepo').value=GH.r;$('ghToken').value=GH.t}
 async function syncToGH(){if(!GH.u||!GH.r||!GH.t){alert('请先填写 GitHub 用户名、仓库名和 Token 并保存配置！');return}
